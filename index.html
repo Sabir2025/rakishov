@@ -1676,6 +1676,7 @@
                         <div class="quiz-progress-dot active" data-step="1"></div>
                         <div class="quiz-progress-dot" data-step="2"></div>
                         <div class="quiz-progress-dot" data-step="3"></div>
+                        <div class="quiz-progress-dot" data-step="4"></div>
                     </div>
 
                     <div class="quiz-step active" data-step="1">
@@ -1702,12 +1703,25 @@
                     </div>
 
                     <div class="quiz-step" data-step="3">
+                        <div class="quiz-title">Какие сроки?</div>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" data-value="Горит проект!">Горит проект!</button>
+                            <button class="quiz-btn" data-value="В спокойном темпе">В спокойном темпе</button>
+                            <button class="quiz-btn" data-value="Сроки обсуждаемы">Сроки обсуждаемы</button>
+                        </div>
+                        <div class="quiz-footer">
+                            <button class="quiz-back" onclick="quizPrev()">← Назад</button>
+                        </div>
+                    </div>
+
+                    <div class="quiz-step" data-step="4">
                         <div class="quiz-title">Где вам удобнее получить расчёт?</div>
                         <div class="quiz-result">
                             <div class="quiz-result-title">Ваш выбор:</div>
                             <div class="quiz-result-text">
                                 <div>Задача: <span id="quizProject">—</span></div>
                                 <div>Бюджет: <span id="quizBudget">—</span></div>
+                                <div>Сроки: <span id="quizTimeline">—</span></div>
                             </div>
                         </div>
                         <div class="quiz-messenger-btns">
@@ -1874,6 +1888,7 @@
         const quizState = {
             project: '',
             budget: '',
+            timeline: '',
             currentStep: 1
         };
 
@@ -1887,8 +1902,11 @@
                     quizNext(2);
                 } else if (step === '2') {
                     quizState.budget = value;
-                    showQuizResult();
                     quizNext(3);
+                } else if (step === '3') {
+                    quizState.timeline = value;
+                    showQuizResult();
+                    quizNext(4);
                 }
             });
         });
@@ -1917,12 +1935,13 @@
         function showQuizResult() {
             document.getElementById('quizProject').textContent = quizState.project;
             document.getElementById('quizBudget').textContent = quizState.budget;
+            document.getElementById('quizTimeline').textContent = quizState.timeline;
 
-            const message = `Привет! Мне нужен ${quizState.project} с бюджетом ${quizState.budget}. Можно получить расчёт?`;
+            const message = `Привет! Мне нужен ${quizState.project} с бюджетом ${quizState.budget}. Сроки: ${quizState.timeline}. Можно получить расчёт?`;
             const telegramLink = document.getElementById('telegramLink');
             const whatsappLink = document.getElementById('whatsappLink');
 
-            telegramLink.href = `https://t.me/RSS1977?text=Привет! Мне нужен ${encodeURIComponent(quizState.project)} с бюджетом ${encodeURIComponent(quizState.budget)}`;
+            telegramLink.href = `https://t.me/RSS1977?text=Привет! Мне нужен ${encodeURIComponent(quizState.project)} с бюджетом ${encodeURIComponent(quizState.budget)}, сроки: ${encodeURIComponent(quizState.timeline)}`;
             whatsappLink.href = `https://wa.me/77079472990?text=${encodeURIComponent(message)}`;
         }
 
