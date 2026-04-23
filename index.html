@@ -926,6 +926,159 @@
             margin-bottom: 40px;
         }
 
+        .project-quiz {
+            background: #1e1e1e;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.3);
+        }
+
+        .quiz-step {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .quiz-step.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .quiz-title {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 32px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-btn {
+            background: #2d2d2d;
+            border: 1px solid #3d3d3d;
+            border-radius: 12px;
+            padding: 18px 24px;
+            color: #e0e0e0;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .quiz-btn:hover {
+            background: #3d3d3d;
+            border-color: #569cd6;
+            transform: translateX(8px);
+        }
+
+        .quiz-progress {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            justify-content: center;
+        }
+
+        .quiz-progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #3d3d3d;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-progress-dot.active {
+            background: #569cd6;
+            transform: scale(1.2);
+        }
+
+        .quiz-progress-dot.completed {
+            background: #4ec9b0;
+        }
+
+        .quiz-footer {
+            margin-top: 24px;
+            text-align: center;
+        }
+
+        .quiz-back {
+            background: none;
+            border: none;
+            color: #808080;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 8px 16px;
+        }
+
+        .quiz-back:hover {
+            color: #e0e0e0;
+        }
+
+        .quiz-result {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .quiz-result-title {
+            color: #4ec9b0;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .quiz-result-text {
+            color: #808080;
+            font-size: 14px;
+        }
+
+        .quiz-messenger-btns {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 24px;
+        }
+
+        .messenger-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .messenger-btn.telegram {
+            background: #0088cc;
+            color: white;
+        }
+
+        .messenger-btn.telegram:hover {
+            background: #0099dd;
+            transform: translateY(-2px);
+        }
+
+        .messenger-btn.whatsapp {
+            background: #25d366;
+            color: white;
+        }
+
+        .messenger-btn.whatsapp:hover {
+            background: #2ecc71;
+            transform: translateY(-2px);
+        }
+
+        .messenger-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
         .contact-form {
             display: flex;
             flex-direction: column;
@@ -1515,17 +1668,63 @@
     <section class="contact" id="contact">
         <div class="container">
             <div class="contact-content reveal">
-                <h2>Готовы обсудить проект?</h2>
-                <p>Оставьте заявку, и я свяжусь с вами в течение 2 часов.</p>
-                <form class="contact-form" id="contactForm" action="send.php" method="POST">
-                    <div class="form-row">
-                        <input type="text" name="name" class="form-input" placeholder="Ваше имя" required>
-                        <input type="email" name="email" class="form-input" placeholder="Email" required>
+                <h2>Обсудим ваш проект?</h2>
+                <p>Ответьте на несколько вопросов, и я подготовлю расчёт</p>
+                
+                <div class="project-quiz" id="projectQuiz">
+                    <div class="quiz-progress">
+                        <div class="quiz-progress-dot active" data-step="1"></div>
+                        <div class="quiz-progress-dot" data-step="2"></div>
+                        <div class="quiz-progress-dot" data-step="3"></div>
                     </div>
-                    <input type="text" name="project" class="form-input" placeholder="Название проекта">
-                    <textarea name="message" class="form-input" placeholder="Кратко о задаче"></textarea>
-                    <button type="submit" class="form-btn">Отправить заявку</button>
-                </form>
+
+                    <div class="quiz-step active" data-step="1">
+                        <div class="quiz-title">Какая у вас задача?</div>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" data-value="Landing Page">Landing Page</button>
+                            <button class="quiz-btn" data-value="Сайт-визитка">Сайт-визитка</button>
+                            <button class="quiz-btn" data-value="Корпоративный сайт">Корпоративный сайт</button>
+                            <button class="quiz-btn" data-value="Интернет-магазин">Интернет-магазин</button>
+                            <button class="quiz-btn" data-value="Другое">Другое</button>
+                        </div>
+                    </div>
+
+                    <div class="quiz-step" data-step="2">
+                        <div class="quiz-title">Примерный бюджет?</div>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" data-value="$100-500">$100 - $500</button>
+                            <button class="quiz-btn" data-value="$500-1000">$500 - $1000</button>
+                            <button class="quiz-btn" data-value="$1000+">$1000+</button>
+                        </div>
+                        <div class="quiz-footer">
+                            <button class="quiz-back" onclick="quizPrev()">← Назад</button>
+                        </div>
+                    </div>
+
+                    <div class="quiz-step" data-step="3">
+                        <div class="quiz-title">Где вам удобнее получить расчёт?</div>
+                        <div class="quiz-result">
+                            <div class="quiz-result-title">Ваш выбор:</div>
+                            <div class="quiz-result-text">
+                                <div>Задача: <span id="quizProject">—</span></div>
+                                <div>Бюджет: <span id="quizBudget">—</span></div>
+                            </div>
+                        </div>
+                        <div class="quiz-messenger-btns">
+                            <a href="#" class="messenger-btn telegram" id="telegramLink" target="_blank">
+                                <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                                Telegram
+                            </a>
+                            <a href="#" class="messenger-btn whatsapp" id="whatsappLink" target="_blank">
+                                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                                WhatsApp
+                            </a>
+                        </div>
+                        <div class="quiz-footer">
+                            <button class="quiz-back" onclick="quizPrev()">← Назад</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1671,6 +1870,61 @@
                 char.classList.add('visible');
             });
         }, 100);
+
+        const quizState = {
+            project: '',
+            budget: '',
+            currentStep: 1
+        };
+
+        document.querySelectorAll('.quiz-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const step = this.closest('.quiz-step').dataset.step;
+                const value = this.dataset.value;
+
+                if (step === '1') {
+                    quizState.project = value;
+                    quizNext(2);
+                } else if (step === '2') {
+                    quizState.budget = value;
+                    showQuizResult();
+                    quizNext(3);
+                }
+            });
+        });
+
+        function quizNext(step) {
+            document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+            document.querySelector(`.quiz-step[data-step="${step}"]`).classList.add('active');
+            
+            document.querySelectorAll('.quiz-progress-dot').forEach((dot, i) => {
+                dot.classList.remove('active', 'completed');
+                if (i + 1 < step) dot.classList.add('completed');
+                if (i + 1 === step) dot.classList.add('active');
+            });
+            
+            quizState.currentStep = step;
+            window.scrollTo({ top: document.getElementById('contact').offsetTop - 100, behavior: 'smooth' });
+        }
+
+        function quizPrev() {
+            if (quizState.currentStep > 1) {
+                quizNext(quizState.currentStep - 1);
+            }
+        }
+        window.quizPrev = quizPrev;
+
+        function showQuizResult() {
+            document.getElementById('quizProject').textContent = quizState.project;
+            document.getElementById('quizBudget').textContent = quizState.budget;
+
+            const message = `Привет! Мне нужен ${quizState.project} с бюджетом ${quizState.budget}. Можно получить расчёт?`;
+            const telegramLink = document.getElementById('telegramLink');
+            const whatsappLink = document.getElementById('whatsappLink');
+
+            telegramLink.href = `https://t.me/RSS1977?text=Привет! Мне нужен ${encodeURIComponent(quizState.project)} с бюджетом ${encodeURIComponent(quizState.budget)}`;
+            whatsappLink.href = `https://wa.me/77079472990?text=${encodeURIComponent(message)}`;
+        }
 
         checkReveal();
     </script>
