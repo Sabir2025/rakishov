@@ -1517,13 +1517,13 @@
             <div class="contact-content reveal">
                 <h2>Готовы обсудить проект?</h2>
                 <p>Оставьте заявку, и я свяжусь с вами в течение 2 часов.</p>
-                <form class="contact-form" id="contactForm">
+                <form class="contact-form" id="contactForm" action="send.php" method="POST">
                     <div class="form-row">
-                        <input type="text" class="form-input" placeholder="Ваше имя" required>
-                        <input type="email" class="form-input" placeholder="Email" required>
+                        <input type="text" name="name" class="form-input" placeholder="Ваше имя" required>
+                        <input type="email" name="email" class="form-input" placeholder="Email" required>
                     </div>
-                    <input type="text" class="form-input" placeholder="Название проекта">
-                    <textarea class="form-input" placeholder="Кратко о задаче"></textarea>
+                    <input type="text" name="project" class="form-input" placeholder="Название проекта">
+                    <textarea name="message" class="form-input" placeholder="Кратко о задаче"></textarea>
                     <button type="submit" class="form-btn">Отправить заявку</button>
                 </form>
             </div>
@@ -1671,22 +1671,6 @@
                 char.classList.add('visible');
             });
         }, 100);
-
-        const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = contactForm.querySelector('.form-btn');
-            const originalText = btn.textContent;
-            
-            btn.textContent = 'Отправлено!';
-            btn.style.background = '#4CAF50';
-            
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.background = '';
-                contactForm.reset();
-            }, 2000);
-        });
 
         checkReveal();
     </script>
