@@ -449,6 +449,11 @@
             stroke-width: 1;
         }
 
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
         .visual-card {
             width: 320px;
             height: 480px;
@@ -462,6 +467,11 @@
             box-shadow: 
                 0 40px 100px rgba(0, 0, 0, 0.35),
                 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+            animation: floatCard 4s ease-in-out infinite;
+        }
+
+        .visual-card:hover {
+            animation-duration: 2.5s;
         }
 
         .visual-card-header {
