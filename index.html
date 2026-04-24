@@ -842,7 +842,7 @@
         }
 
         .about-img {
-            width: 100%;
+            width: 75%;
             aspect-ratio: 3/4;
             border-radius: 30px;
             background: var(--bg-secondary);
@@ -852,6 +852,7 @@
             position: relative;
             overflow: hidden;
             border: 1px solid var(--border-color);
+            margin: auto;
         }
 
         .about-img svg {
@@ -1575,15 +1576,11 @@
             <div class="portfolio-grid">
                 <div class="portfolio-item reveal">
                     <div class="portfolio-bg">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                            <path d="M2 17l10 5 10-5"/>
-                            <path d="M2 12l10 5 10-5"/>
-                        </svg>
+                        <img src="img/CorpSite.jpg" alt="Корпоративный сайт" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="portfolio-content">
                         <h3>Корпоративный сайт</h3>
-                        <p>Веб-сайт для IT-компании</p>
+                        <p>Для компании по производству ЖБИ</p>
                     </div>
                 </div>
                 <div class="portfolio-item reveal">
@@ -1642,15 +1639,8 @@
     <section class="about" id="about">
         <div class="container">
             <div class="about-content">
-                <div class="about-image reveal-left">
-                    <div class="about-img">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1">
-                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-                            <circle cx="12" cy="7" r="4"/>
-                        </svg>
-                    </div>
-                </div>
-                <div class="about-text reveal-right">
+                <div class="about-text reveal-left">
+				<div class="section-label">Обо мне</div>
                     <h2>Сабир Ракишов</h2>
                     <p>Я — fullstack разработчик и дизайнер с 3-летним опытом. Создаю сайты, которые реально работают на бизнес.</p>
                     <p>Мой подход: никаких шаблонов и типовых решений. Каждый проект — это уникальная история, которая транслирует ценность вашего бренда.</p>
@@ -1670,7 +1660,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="about-image reveal-right">
+                    <div class="about-img">
+                        <img src="img/AuthFullstack.png" alt="Сабир Ракишов" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+             </div>
         </div>
     </section>
 
