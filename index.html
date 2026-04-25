@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сабир Ракишов | Fullstack разработчик & дизайнер</title>
+    <title>Сайты под ключ для бизнеса: от идеи до заявок | Сабир Ракишов - Fullstack разработчик & дизайнер</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
@@ -1428,7 +1428,7 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <div class="hero-label">Fullstack разработчик & дизайнер</div>
+                    <div class="hero-label">Сабир Ракишов - Fullstack разработчик & дизайнер</div>
                     <h1 class="hero-title">
                         <span class="word" id="heroTitle"></span>
                     </h1>
@@ -1889,14 +1889,25 @@
         });
 
         const heroTitle = document.getElementById('heroTitle');
-        const titleText = 'Сабир Ракишов';
+        const lines = [
+            { text: 'Сайты под ключ', size: 1 },
+            { text: 'для бизнеса:', size: 0.9 },
+            { text: 'от идеи до заявок', size: 0.9 }
+        ];
         
-        titleText.split('').forEach((char, i) => {
-            const span = document.createElement('span');
-            span.className = 'char';
-            span.textContent = char === ' ' ? '\u00A0' : char;
-            span.style.transitionDelay = `${i * 0.05}s`;
-            heroTitle.appendChild(span);
+        lines.forEach((line, lineIndex) => {
+            line.text.split('').forEach((char, i) => {
+                const span = document.createElement('span');
+                span.className = 'char';
+                span.textContent = char === ' ' ? '\u00A0' : char;
+                span.style.fontSize = `calc(clamp(36px, 5.4vw, 58px) * ${line.size})`;
+                span.style.transitionDelay = `${(i + lineIndex * 14) * 0.03}s`;
+                heroTitle.appendChild(span);
+            });
+            if (lineIndex < lines.length - 1) {
+                const br = document.createElement('br');
+                heroTitle.appendChild(br);
+            }
         });
 
         setTimeout(() => {
