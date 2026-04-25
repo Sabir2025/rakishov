@@ -1208,6 +1208,18 @@
             transition: all 0.3s ease;
         }
 
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
         .mobile-menu {
             display: none;
             position: fixed;
@@ -1282,7 +1294,12 @@
             }
 
             .about-image {
-                display: none;
+                order: 2;
+                margin-top: 40px;
+            }
+
+            .about-image {
+                display: block;
             }
         }
 
@@ -1781,11 +1798,13 @@
 
         menuToggle.addEventListener('click', () => {
             mobileMenu.classList.toggle('active');
+            menuToggle.classList.toggle('active');
         });
 
         document.querySelectorAll('.mobile-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
             });
         });
 
