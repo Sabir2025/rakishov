@@ -764,11 +764,6 @@
             background: var(--bg-tertiary);
         }
 
-        .portfolio-item:hover {
-            transform: scale(1.02);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-        }
-
         .portfolio-item:nth-child(1) {
             grid-column: span 2;
         }
@@ -812,6 +807,58 @@
         .portfolio-item:hover .portfolio-content {
             transform: translateY(0);
             opacity: 1;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 12px;
+            cursor: default;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: var(--bg-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: scale(1.1);
+        }
+
+        .modal-close svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-primary);
+            stroke-width: 2;
         }
 
         .portfolio-content h3 {
@@ -1364,6 +1411,43 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--accent-light);
         }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(45, 45, 45, 0.3);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(45, 45, 45, 0.4);
+        }
+
+        .scroll-top svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--bg-primary);
+            stroke-width: 2;
+            fill: none;
+        }
     </style>
 </head>
 <body>
@@ -1636,10 +1720,7 @@
                 </div>
                 <div class="portfolio-item reveal">
                     <div class="portfolio-bg">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
-                            <rect x="5" y="2" width="14" height="20" rx="2"/>
-                            <path d="M12 18h.01"/>
-                        </svg>
+                        <img src="img/SiteArch.jpg" alt="Landing page" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="portfolio-content">
                         <h3>Landing page</h3>
@@ -1977,6 +2058,69 @@
         }
 
         checkReveal();
+
+        const scrollTopBtn = document.getElementById('scrollTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        const modal = document.getElementById('modal');
+        const modalImage = document.getElementById('modalImage');
+        const modalClose = document.getElementById('modalClose');
+
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            const img = item.querySelector('img');
+            if (img) {
+                item.style.cursor = 'pointer';
+                item.addEventListener('click', function() {
+                    modalImage.src = img.src;
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+        });
+
+        modalClose.addEventListener('click', function() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
     </script>
+    <a href="#" class="scroll-top" id="scrollTop">
+        <svg viewBox="0 0 24 24">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </a>
+    <div class="modal" id="modal">
+        <div class="modal-close" id="modalClose">
+            <svg viewBox="0 0 24 24" fill="none">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </div>
+        <img class="modal-content" id="modalImage" src="" alt="">
+    </div>
 </body>
 </html>
