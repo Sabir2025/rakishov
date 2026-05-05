@@ -157,8 +157,9 @@
         }
 
         .logo svg {
-            width: 165px;
-            height: 82px;
+            display: block;
+            height: auto;
+            max-width: 150px;
         }
 
         .logo span {
@@ -255,41 +256,13 @@
             z-index: 0;
         }
 
-        .hero-bg svg {
+        .hero-bg canvas {
             width: 100%;
-            height: 100%;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
-
-        .hero-bg .grid-line {
-            stroke: var(--border-color);
-            stroke-width: 1;
-            fill: none;
-        }
-
-        .hero-bg .circle {
-            fill: none;
-            stroke: var(--border-color);
-            stroke-width: 1;
-            transform-origin: center;
-            animation: spin 20s linear infinite;
-        }
-
-        .hero-bg svg .circle.c1 { transform-origin: 150px 150px; }
-        .hero-bg svg .circle.c2 { transform-origin: 1050px 650px; animation-duration: 25s; animation-direction: reverse; }
-        .hero-bg svg .circle.c3 { transform-origin: 1100px 200px; animation-duration: 30s; animation-direction: reverse; }
-        .hero-bg svg .circle.c4 { transform-origin: 100px 700px; animation-duration: 35s; }
-
-        .hero-bg .dot {
-            fill: var(--accent);
-            opacity: 0.3;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .hero-bg .dot.d1 { animation-delay: 0s; }
-        .hero-bg .dot.d2 { animation-delay: 0.5s; }
-        .hero-bg .dot.d3 { animation-delay: 1s; }
-        .hero-bg .dot.d4 { animation-delay: 1.5s; }
-        .hero-bg .dot.d5 { animation-delay: 2s; }
 
         .hero-divider {
             position: absolute;
@@ -299,16 +272,6 @@
             height: 1px;
             background: var(--border-color);
             opacity: 0.3;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(0, -15px); }
         }
 
         .hero-bg[data-parallax] .grid-line {
@@ -459,7 +422,7 @@
             height: 480px;
             background: #1e1e1e;
             border-radius: 24px;
-            border: 1px solid #2d2d2d;
+            border: 0px solid #2d2d2d;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -467,7 +430,7 @@
             box-shadow: 
                 0 40px 100px rgba(0, 0, 0, 0.35),
                 0 1px 0 rgba(255, 255, 255, 0.03) inset;
-            animation: floatCard 4s ease-in-out infinite;
+            animation: floatCard 3s ease-in-out infinite;
         }
 
         .visual-card:hover {
@@ -764,9 +727,7 @@
             background: var(--bg-tertiary);
         }
 
-        .portfolio-item:nth-child(1) {
-            grid-column: span 2;
-        }
+        
 
         .portfolio-bg {
             position: absolute;
@@ -779,6 +740,13 @@
             justify-content: center;
             transition: all 0.4s ease;
             background: var(--bg-tertiary);
+        }
+
+        .portfolio-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .portfolio-bg svg {
@@ -817,7 +785,7 @@
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
+            z-index: 9999;
             align-items: center;
             justify-content: center;
             cursor: pointer;
@@ -1104,7 +1072,7 @@
             align-items: center;
             gap: 10px;
             padding: 14px 28px;
-            border-radius: 12px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
@@ -1287,7 +1255,7 @@
         }
 
         .mobile-menu a {
-            font-size: 32px;
+            font-size: 16px;
             font-weight: 600;
             color: var(--text-primary);
             text-decoration: none;
@@ -1332,9 +1300,7 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .portfolio-item:nth-child(1) {
-                grid-column: span 2;
-            }
+            
 
             .about-content {
                 grid-template-columns: 1fr;
@@ -1376,9 +1342,7 @@
                 grid-template-columns: 1fr;
             }
 
-            .portfolio-item:nth-child(1) {
-                grid-column: span 1;
-            }
+            
 
             .form-row {
                 grid-template-columns: 1fr;
@@ -1464,7 +1428,8 @@
                     <a href="#services">Услуги</a>
                     <a href="#portfolio">Портфолио</a>
                     <a href="#about">Обо мне</a>
-                    <a href="#contact">Контакты</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="#contact">Хочу свой проект</a>
                 </nav>
                 <a href="https://wa.me/77053554841" class="cta-btn" target="_blank">
                     <svg viewBox="0 0 24 24" fill="#fff">
@@ -1485,28 +1450,19 @@
         <a href="#services">Услуги</a>
         <a href="#portfolio">Портфолио</a>
         <a href="#about">Обо мне</a>
-        <a href="#contact">Контакты</a>
+		<a href="faq.html">FAQ</a>
+        <a href="#contact">Хочу свой проект</a>
+		<a href="https://wa.me/77053554841" class="cta-btn" target="_blank">
+            <svg viewBox="0 0 24 24" fill="#fff">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M18.403 5.633A8.919 8.919 0 0 0 12.053 3c-4.948 0-8.976 4.027-8.978 8.977 0 1.582.413 3.126 1.198 4.488L3 21.116l4.759-1.249a8.981 8.981 0 0 0 4.29 1.093h.004c4.947 0 8.975-4.027 8.977-8.977a8.926 8.926 0 0 0-2.627-6.35m-6.35 13.812h-.003a7.446 7.446 0 0 1-3.798-1.041l-.272-.162-2.824.741.753-2.753-.177-.282a7.448 7.448 0 0 1-1.141-3.971c.002-4.114 3.349-7.461 7.465-7.461a7.413 7.413 0 0 1 5.275 2.188 7.42 7.42 0 0 1 2.183 5.279c-.002 4.114-3.349 7.462-7.461 7.462m4.093-5.589c-.225-.113-1.327-.655-1.533-.73-.205-.075-.354-.112-.504.112s-.58.729-.711.879-.262.168-.486.056-.947-.349-1.804-1.113c-.667-.595-1.117-1.329-1.248-1.554s-.014-.346.099-.458c.101-.1.224-.262.336-.393.112-.131.149-.224.224-.374s.038-.281-.019-.393c-.056-.113-.505-1.217-.692-1.666-.181-.435-.366-.377-.504-.383a9.65 9.65 0 0 0-.429-.008.826.826 0 0 0-.599.28c-.206.225-.785.767-.785 1.871s.804 2.171.916 2.321c.112.15 1.582 2.415 3.832 3.387.536.231.954.369 1.279.473.537.171 1.026.146 1.413.089.431-.064 1.327-.542 1.514-1.066.187-.524.187-.973.131-1.067-.056-.094-.207-.151-.43-.263"/>
+            </svg>
+            <span>+7 705 355 48 41</span>
+                </a>
     </div>
 
     <section class="hero">
         <div class="hero-bg">
-            <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
-                <defs>
-                    <pattern id="diamond-pattern" width="80" height="80" patternUnits="userSpaceOnUse">
-                        <path d="M40 0 L80 40 L40 80 L0 40 Z" fill="none" stroke="var(--border-color)" stroke-width="0.5" opacity="0.4"/>
-                    </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#diamond-pattern)"/>
-                <circle class="circle c1" cx="150" cy="150" r="80" stroke-dasharray="4 4"/>
-                <circle class="circle c2" cx="1050" cy="650" r="120" stroke-dasharray="4 4"/>
-                <circle class="circle c3" cx="1100" cy="200" r="40" stroke-dasharray="4 4"/>
-                <circle class="circle c4" cx="100" cy="700" r="60" stroke-dasharray="4 4"/>
-                <circle class="dot d1" cx="300" cy="300" r="6"/>
-                <circle class="dot d2" cx="900" cy="150" r="4"/>
-                <circle class="dot d3" cx="750" cy="550" r="8"/>
-                <circle class="dot d4" cx="150" cy="500" r="5"/>
-                <circle class="dot d5" cx="1050" cy="350" r="6"/>
-            </svg>
+            <canvas id="lowPolyCanvas"></canvas>
         </div>
         <div class="hero-divider"></div>
         <div class="container">
@@ -1686,31 +1642,6 @@
                 </div>
                 <div class="portfolio-item reveal">
                     <div class="portfolio-bg">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
-                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-                            <path d="M3 6h18"/>
-                            <path d="M16 10a4 4 0 01-8 0"/>
-                        </svg>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3>Интернет-магазин</h3>
-                        <p>E-commerce платформа</p>
-                    </div>
-                </div>
-                <div class="portfolio-item reveal">
-                    <div class="portfolio-bg">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 6v6l4 2"/>
-                        </svg>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3>Сервис</h3>
-                        <p>Веб-приложение</p>
-                    </div>
-                </div>
-                <div class="portfolio-item reveal">
-                    <div class="portfolio-bg">
                         <img src="img/SiteVis.jpg" alt="Сайт-визитка" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="portfolio-content">
@@ -1727,6 +1658,48 @@
                         <p>Продающая страница</p>
                     </div>
                 </div>
+                <div class="portfolio-item reveal">
+                    <div class="portfolio-bg">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <path d="M21 15l-5-5L5 21"/>
+                        </svg>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Интернет-магазин</h3>
+                        <p>E-commerce платформа</p>
+                    </div>
+                </div>
+                <div class="portfolio-item reveal">
+                    <div class="portfolio-bg">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <path d="M21 15l-5-5L5 21"/>
+                        </svg>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Сайт клиники</h3>
+                        <p>Медицинский центр</p>
+                    </div>
+                </div>
+                <div class="portfolio-item reveal">
+                    <div class="portfolio-bg">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <path d="M21 15l-5-5L5 21"/>
+                        </svg>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Веб-сервис</h3>
+                        <p>Платформа для автоматизации</p>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 60px;">
+                <a href="gallery.html" class="btn-primary">Посмотреть другие работы</a>
             </div>
         </div>
     </section>
@@ -1738,8 +1711,8 @@
 				<div class="section-label">Обо мне</div>
                     <h2>Сабир Ракишов</h2>
                     <p>Я — fullstack разработчик и дизайнер с 3-летним опытом. Создаю сайты, которые реально работают на бизнес.</p>
-                    <p>Мой подход: никаких шаблонов и типовых решений. Каждый проект — это уникальная история, которая транслирует ценность вашего бренда.</p>
-                    <p>Работаю быстро, без лишних созвонов и бюрократии. Запускаю проекты в срок и даю поддержку после сдачи.</p>
+                    <p>Мой подход: Индивидуальная разработка под задачи вашего бизнеса: только то, что действительно усиливает ваш бренд и даёт результат.</p>
+                    <p>Работаю чётко и по делу: минимум лишних коммуникаций, прозрачные этапы, соблюдение сроков. Проект довожу до результата и остаюсь на связи после запуска.</p>
                     <div class="about-stats">
                         <div class="about-stat">
                             <h4>50+</h4>
@@ -1792,8 +1765,8 @@
                     <div class="quiz-step" data-step="2">
                         <div class="quiz-title">Примерный бюджет?</div>
                         <div class="quiz-options">
-                            <button class="quiz-btn" data-value="$100-500">$100 - $500</button>
-                            <button class="quiz-btn" data-value="$500-1000">$500 - $1000</button>
+                            <button class="quiz-btn" data-value="$80-100">$80 - $100</button>
+                            <button class="quiz-btn" data-value="$200-1000">$200 - $1000</button>
                             <button class="quiz-btn" data-value="$1000+">$1000+</button>
                         </div>
                         <div class="quiz-footer">
@@ -1855,7 +1828,8 @@
                     <a href="#services">Услуги</a>
                     <a href="#portfolio">Портфолио</a>
                     <a href="#about">Обо мне</a>
-                    <a href="#contact">Контакты</a>
+					<a href="faq.html">FAQ</a>
+                    <a href="#contact">Хочу свой проект</a>
                 </div>
             </div>
             <div class="footer-copy">
@@ -1929,45 +1903,164 @@
         window.addEventListener('scroll', checkReveal);
         window.addEventListener('load', checkReveal);
 
-        const heroBg = document.querySelector('.hero-bg');
-        if (heroBg) {
-            heroBg.setAttribute('data-parallax', 'true');
+        // Low Poly Background Animation
+        const canvas = document.getElementById('lowPolyCanvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let points = [];
+            let triangles = [];
+            let mouseX = 0, mouseY = 0;
+            let targetMouseX = 0, targetMouseY = 0;
+            const cellSize = 100;
+            
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+                generatePoints();
+            }
+            
+            function generatePoints() {
+                points = [];
+                const centerX = width / 2;
+                const centerY = height / 2;
+                const maxRadius = Math.max(width, height) * 0.7;
+                const minRadius = 40;
+                const rings = Math.ceil((maxRadius - minRadius) / cellSize);
+                const pointsPerRing = 20;
+                
+                // Center point
+                points.push({ x: centerX, y: centerY, baseX: centerX, baseY: centerY, phase: 0, ring: 0 });
+                
+                // Generate points in circles
+                for (let ring = 1; ring <= rings; ring++) {
+                    const radius = minRadius + ring * cellSize;
+                    const numPoints = Math.max(6, Math.floor(pointsPerRing * (ring / rings) * 1.5 + 6));
+                    
+                    for (let i = 0; i < numPoints; i++) {
+                        const angle = (i / numPoints) * Math.PI * 2 + (ring * 0.3);
+                        const px = centerX + Math.cos(angle) * radius;
+                        const py = centerY + Math.sin(angle) * radius;
+                        
+                        points.push({
+                            x: px,
+                            y: py,
+                            baseX: px,
+                            baseY: py,
+                            phase: Math.random() * Math.PI * 2,
+                            ring: ring,
+                            angle: angle,
+                            radius: radius
+                        });
+                    }
+                }
+                
+                // Generate triangles (connect nearby points)
+                triangles = [];
+                for (let i = 0; i < points.length; i++) {
+                    for (let j = i + 1; j < points.length; j++) {
+                        for (let k = j + 1; k < points.length; k++) {
+                            const p1 = points[i];
+                            const p2 = points[j];
+                            const p3 = points[k];
+                            
+                            const d1 = Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
+                            const d2 = Math.sqrt((p2.x - p3.x) ** 2 + (p2.y - p3.y) ** 2);
+                            const d3 = Math.sqrt((p3.x - p1.x) ** 2 + (p3.y - p1.y) ** 2);
+                            
+                            const maxD = Math.max(d1, d2, d3);
+                            if (maxD < cellSize * 1.8) {
+                                triangles.push([i, j, k]);
+                            }
+                        }
+                    }
+                }
+            }
+            
+            function draw() {
+                const time = Date.now() * 0.001;
+                mouseX += (targetMouseX - mouseX) * 0.08;
+                mouseY += (targetMouseY - mouseY) * 0.08;
+                
+                const centerX = width / 2;
+                const centerY = height / 2;
+                
+                ctx.clearRect(0, 0, width, height);
+                
+                // Update points with mouse interaction and wave
+                points.forEach((p, i) => {
+                    const dx = p.baseX - mouseX;
+                    const dy = p.baseY - mouseY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const maxDist = 350;
+                    
+                    let offsetX = 0, offsetY = 0;
+                    if (dist < maxDist && dist > 0) {
+                        const force = Math.pow((1 - dist / maxDist), 2) * 50;
+                        offsetX = (dx / dist) * force;
+                        offsetY = (dy / dist) * force;
+                    }
+                    
+                    const wave = Math.sin(time * 0.8 + p.phase) * 8;
+                    const wave2 = Math.cos(time * 0.6 + p.phase * 0.7) * 5;
+                    p.x = p.baseX + offsetX + wave;
+                    p.y = p.baseY + offsetY + wave2;
+                });
+                
+                // Draw wireframe lines
+                ctx.beginPath();
+                ctx.strokeStyle = 'rgba(180, 180, 180, 0.15)';
+                ctx.lineWidth = 0.8;
+                
+                triangles.forEach(tri => {
+                    const p1 = points[tri[0]];
+                    const p2 = points[tri[1]];
+                    const p3 = points[tri[2]];
+                    
+                    if (p1 && p2 && p3) {
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.lineTo(p3.x, p3.y);
+                        ctx.closePath();
+                    }
+                });
+                ctx.stroke();
+                
+                // Draw nodes
+                points.forEach((p, i) => {
+                    const dx = p.baseX - mouseX;
+                    const dy = p.baseY - mouseY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    let size = 1.5;
+                    let alpha = 0.3;
+                    
+                    if (dist < 200) {
+                        const scale = 1 - dist / 200;
+                        size = 1.5 + scale * 2;
+                        alpha = 0.3 + scale * 0.5;
+                    }
+                    
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(45, 45, 45, ${alpha})`;
+                    ctx.fill();
+                });
+                
+                requestAnimationFrame(draw);
+            }
+            
+            document.addEventListener('mousemove', (e) => {
+                targetMouseX = e.clientX;
+                targetMouseY = e.clientY;
+            });
+            
+            window.addEventListener('resize', resize);
+            resize();
+            draw();
         }
-
-        document.addEventListener('mousemove', (e) => {
-            if (!heroBg) return;
-            const x = (e.clientX / window.innerWidth - 0.5) * 2;
-            const y = (e.clientY / window.innerHeight - 0.5) * 2;
-
-            heroBg.querySelectorAll('.grid-line').forEach((line, i) => {
-                const depth = (i + 1) * 3;
-                line.style.transform = `translate(${x * depth}px, ${y * depth}px)`;
-            });
-
-            heroBg.querySelectorAll('rect').forEach((rect) => {
-                rect.style.transform = `translate(${x * 2}px, ${y * 2}px)`;
-            });
-
-            heroBg.querySelectorAll('.circle').forEach((circle, i) => {
-                const depth = (i + 1) * 8;
-                const cx = circle.getAttribute('cx');
-                const cy = circle.getAttribute('cy');
-                if (cx && cy) {
-                    circle.style.transformOrigin = `${cx}px ${cy}px`;
-                    circle.style.transform = `translate(${x * depth}px, ${y * depth}px)`;
-                }
-            });
-
-            heroBg.querySelectorAll('.dot').forEach((dot, i) => {
-                const depth = (i + 1) * 5;
-                const cx = dot.getAttribute('cx');
-                const cy = dot.getAttribute('cy');
-                if (cx && cy) {
-                    dot.style.transformOrigin = `${cx}px ${cy}px`;
-                    dot.style.transform = `translate(${x * depth}px, ${y * depth}px)`;
-                }
-            });
-        });
 
         const heroTitle = document.getElementById('heroTitle');
         const lines = [
@@ -2059,54 +2152,48 @@
 
         checkReveal();
 
-        const scrollTopBtn = document.getElementById('scrollTop');
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('modal');
+            const modalImage = document.getElementById('modalImage');
+            const modalClose = document.getElementById('modalClose');
 
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 500) {
-                scrollTopBtn.classList.add('visible');
-            } else {
-                scrollTopBtn.classList.remove('visible');
+            if (!modal || !modalImage || !modalClose) {
+                console.error('Modal elements not found');
+                return;
             }
-        });
 
-        scrollTopBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+            document.querySelectorAll('.portfolio-item').forEach(item => {
+                const img = item.querySelector('.portfolio-bg img') || item.querySelector('img');
+                if (img) {
+                    item.style.cursor = 'pointer';
+                    item.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        modalImage.src = img.src;
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    });
+                }
+            });
 
-        const modal = document.getElementById('modal');
-        const modalImage = document.getElementById('modalImage');
-        const modalClose = document.getElementById('modalClose');
-
-        document.querySelectorAll('.portfolio-item').forEach(item => {
-            const img = item.querySelector('img');
-            if (img) {
-                item.style.cursor = 'pointer';
-                item.addEventListener('click', function() {
-                    modalImage.src = img.src;
-                    modal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-            }
-        });
-
-        modalClose.addEventListener('click', function() {
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
+            modalClose.addEventListener('click', function() {
                 modal.classList.remove('active');
                 document.body.style.overflow = '';
-            }
-        });
+            });
 
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
-                modal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
         });
     </script>
     <a href="#" class="scroll-top" id="scrollTop">
