@@ -35,13 +35,13 @@
     <!-- Styles -->
     <style>
         :root {
-            --bg: #0A0A0A;
+            --bg: #101828; /* Темный цвет (Navy Dark) */
             --fg: #F5F5F2;
             --white: #FFFFFF;
-            --accent: #FFFF00; /* Pure Yellow */
+            --accent: #FFFF00; /* Акцентный цвет (Yellow) */
             --gray: #8A8A8A;
-            --dark-gray: #1A1A1A;
-            --border: #2A2A2A;
+            --dark-gray: #1D2939; /* Немного светлее основного фона для контраста блоков */
+            --border: #2D3748; /* Цвет границ, сочетающийся с темным фоном */
             --font-grotesk: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             --ease: cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -123,7 +123,7 @@
         }
 
         header.scrolled {
-            background: rgba(10, 10, 10, 0.8);
+            background: rgba(16, 24, 40, 0.8);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
             padding: 15px 0;
@@ -143,7 +143,7 @@
         }
 
         .logo-img {
-            height: 50px;
+            height: 40px;
             width: auto;
             max-width: 150px;
             display: block;
@@ -156,7 +156,6 @@
             align-items: center;
         }
 
-        /* Навигация: кружок и цвет при hover/active */
         nav a {
             font-size: 14px;
             font-weight: 500;
@@ -164,7 +163,7 @@
             opacity: 0.7;
             transition: all 0.2s ease;
             position: relative;
-            padding-left: 14px; /* Место для кружка */
+            padding-left: 14px;
         }
 
         nav a::before {
@@ -176,7 +175,7 @@
             width: 6px;
             height: 6px;
             background: var(--accent);
-            border-radius: 50%;
+            border-radius: 0; /* Квадратик */
             transition: transform 0.3s var(--ease);
         }
 
@@ -189,7 +188,6 @@
             transform: translateY(-50%) scale(1);
         }
 
-        /* Группировка правой части хедера */
         .header-actions {
             display: flex;
             align-items: center;
@@ -221,42 +219,118 @@
             background: rgba(255, 255, 0, 0.1);
         }
 
-        .btn {
-            background: var(--accent);
-            color: var(--bg);
+        /* --- ИНТЕРАКТИВНЫЕ КНОПКИ (Внедренный код) --- */
+        .interactive-hover-btn {
+            position: relative;
+            width: auto;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 0; /* Острые углы */
+            border: 1px solid var(--accent);
+            background-color: var(--accent);
             padding: 12px 24px;
-            font-size: 14px;
+            text-align: center;
             font-weight: 700;
+            font-family: var(--font-grotesk);
             text-transform: uppercase;
+            font-size: 14px;
             letter-spacing: 0.02em;
+            outline: none;
+            transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            transition: transform 0.2s var(--ease), background 0.2s ease, color 0.2s ease;
-            border: 1px solid var(--accent);
-            cursor: pointer;
+            justify-content: center;
+            line-height: 1;
             white-space: nowrap;
+            text-decoration: none;
         }
 
-        .btn:hover {
-            transform: translate(-2px, -2px);
-            background: transparent;
+        .btn-text {
+            display: inline-block;
+            transform: translateX(4px);
+            transition: all 0.3s var(--ease);
+            color: var(--bg);
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-hover-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transform: translateX(48px);
+            opacity: 0;
+            transition: all 0.3s var(--ease);
             color: var(--accent);
+            z-index: 2;
         }
 
-        .btn-outline {
-            background: transparent;
+        .btn-circle {
+            position: absolute;
+            left: 12px; /* Расположение слева */
+            top: 50%;
+            width: 8px;
+            height: 8px;
+            border-radius: 1px; /* Слегка скругляем саму точку, но не кнопку */
+            background-color: var(--bg);
+            transition: all 0.4s var(--ease);
+            transform: translateY(-50%) scale(1);
+            z-index: 1;
+        }
+
+        .interactive-hover-btn:hover .btn-text {
+            transform: translateX(48px);
+            opacity: 0;
+        }
+
+        .interactive-hover-btn:hover .btn-hover-content {
+            transform: translateX(-4px);
+            opacity: 1;
+        }
+
+        .interactive-hover-btn:hover .btn-circle {
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0; /* Острые углы при наведении */
+            transform: scale(1.5);
+            background-color: var(--bg);
+        }
+
+        .btn-hover-content svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* Контурная версия интерактивной кнопки */
+        .interactive-hover-btn.btn-outline {
+            background-color: transparent;
             border: 1px solid var(--border);
+        }
+        .interactive-hover-btn.btn-outline .btn-text {
             color: var(--fg);
         }
-
-        .btn-outline:hover {
+        .interactive-hover-btn.btn-outline .btn-hover-content {
+            color: var(--bg);
+        }
+        .interactive-hover-btn.btn-outline .btn-circle {
+            background-color: var(--accent);
+        }
+        .interactive-hover-btn.btn-outline:hover {
             border-color: var(--accent);
-            color: var(--accent);
-            transform: translate(-2px, -2px);
         }
 
-        /* Бургер: размеры и защита от сжатия */
+        /* Бургер */
         .burger {
             display: none;
             flex-direction: column;
@@ -265,7 +339,7 @@
             width: 32px;
             height: 24px;
             justify-content: center;
-            flex-shrink: 0; /* Запрещаем сжимать */
+            flex-shrink: 0;
             z-index: 101;
         }
 
@@ -279,16 +353,15 @@
 
         /* Hero */
         .hero {
-            min-height: 90vh; /* Уменьшена высота первого экрана */
+            min-height: 85vh;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             padding: 120px 0 60px;
             position: relative;
-            overflow: hidden; /* Обрезаем края фона при зуме */
+            overflow: hidden;
         }
 
-        /* Фоновое изображение с легким зумом для четкости */
         .hero::after {
             content: '';
             position: absolute;
@@ -299,10 +372,10 @@
             background: url('img/bg.png') no-repeat center center;
             background-size: cover;
             z-index: 0;
-            transform: scale(1.05); /* Легкий зум для четкости и уменьшения видимой области */
+            transform: scale(1.1);
+            filter: contrast(1.2) saturate(1.1);
         }
 
-        /* Подложка поверх фона для читаемости (уменьшена opacity) */
         .hero::before {
             content: '';
             position: absolute;
@@ -310,13 +383,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.3) 60%, rgba(10, 10, 10, 0.85) 100%);
+            background: linear-gradient(180deg, rgba(16, 24, 40, 0.55) 0%, rgba(16, 24, 40, 0.7) 60%, rgba(16, 24, 40, 0.9) 100%);
             z-index: 1;
         }
 
         .hero .container {
             position: relative;
-            z-index: 2; /* Контент поверх подложки */
+            z-index: 2;
         }
 
         .hero-top {
@@ -387,7 +460,7 @@
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
             padding: 40px 0;
-            background: var(--bg); /* Явно темный фон, чтобы отсечь картинку */
+            background: var(--bg);
         }
 
         .proof-grid {
@@ -399,6 +472,8 @@
         .stat-item {
             display: flex;
             flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
 
         .stat-num {
@@ -420,7 +495,7 @@
         .section {
             padding: 120px 0;
             border-bottom: 1px solid var(--border);
-            background: var(--bg); /* Явно темный фон */
+            background: var(--bg);
         }
 
         .section-header {
@@ -580,7 +655,7 @@
         .project-overlay {
             position: relative;
             z-index: 2;
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+            background: linear-gradient(to top, rgba(16,24,40,0.9) 0%, rgba(16,24,40,0) 100%);
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -844,6 +919,28 @@
             padding-top: 24px;
         }
 
+        /* Простые кнопки для навигации формы */
+        .form-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--fg);
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s var(--ease);
+        }
+        .form-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .form-btn.primary {
+            background: var(--accent);
+            color: var(--bg);
+            border-color: var(--accent);
+        }
+
         .summary-screen {
             text-align: left;
         }
@@ -921,45 +1018,30 @@
             color: var(--gray);
         }
 
-        .massive-type {
-            font-size: clamp(80px, 18vw, 260px);
-            font-weight: 900;
-            line-height: 0.8;
-            letter-spacing: -0.06em;
-            margin: 40px 0;
-            color: transparent;
-            -webkit-text-stroke: 1px var(--border);
-            text-align: center;
-        }
-
         /* Mobile Responsive */
         @media (max-width: 1024px) {
             .container { padding: 0 24px; }
             nav { display: none; }
             .burger { display: flex; }
             
-            /* Компрессия элементов хедера */
             .logo-img { height: 32px; }
             .header-actions { gap: 12px; }
             .lang-switch { font-size: 12px; }
             .lang-switch span { padding: 3px 5px; }
-            .btn { padding: 8px 16px; font-size: 12px; }
+            .interactive-hover-btn { padding: 8px 16px; font-size: 12px; }
             
-            /* Уменьшаем высоту первого экрана на мобильных */
-            .hero { min-height: 85vh; }
-            /* Убирааем сильный зум, чтобы картинка сжималась естественным образом через cover */
-            .hero::after { transform: scale(1); }
+            .hero { min-height: 80vh; }
+            .hero::after { transform: scale(1); filter: contrast(1.1); }
 
             .hero-top { flex-direction: column; gap: 20px; }
             .hero-bottom { flex-direction: column; gap: 30px; align-items: flex-start; }
             
-            /* Растягиваем кнопки в Hero для премиального мобильного вида */
             .hero-cta {
                 flex-direction: column;
                 width: 100%;
                 gap: 10px;
             }
-            .hero-cta .btn {
+            .hero-cta .interactive-hover-btn {
                 width: 100%;
                 justify-content: center;
                 padding: 14px 16px;
@@ -979,7 +1061,7 @@
             .options-grid { grid-template-columns: 1fr; }
             .option { padding: 18px; font-size: 16px; }
             
-            .form-nav .btn { padding: 8px 12px; font-size: 12px; }
+            .form-nav .form-btn { padding: 8px 12px; font-size: 12px; }
         }
 
         /* Very Small Screens (360px - 390px) */
@@ -988,14 +1070,14 @@
             .header-actions { gap: 8px; }
             .lang-switch { font-size: 11px; padding: 1px; }
             .lang-switch span { padding: 3px 4px; }
-            .btn { padding: 7px 10px; font-size: 11px; }
+            .interactive-hover-btn { padding: 7px 10px; font-size: 11px; }
             .form-question { font-size: 24px; }
             .section { padding: 80px 0; }
             .section-header { margin-bottom: 40px; }
             .section-header h2 { font-size: clamp(36px, 10vw, 64px); }
             .multistep-form { padding: 24px; }
             .faq-question { font-size: 18px; }
-            .hero { min-height: 80vh; } /* Еще чуть-чуть уменьшаем для маленьких экранов */
+            .hero { min-height: 75vh; }
         }
 
         .mobile-menu {
@@ -1055,7 +1137,14 @@
                     <span class="active" onclick="switchLang('ru')">RU</span>
                     <span onclick="switchLang('en')">EN</span>
                 </div>
-                <a href="#contact" class="btn" data-i18n="header_cta">Начать проект →</a>
+                <a href="#contact" class="interactive-hover-btn">
+                    <span class="btn-text" data-i18n="header_cta">Начать проект</span>
+                    <div class="btn-hover-content">
+                        <span data-i18n="header_cta">Начать проект</span>
+                        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </div>
+                    <div class="btn-circle"></div>
+                </a>
                 <div class="burger" onclick="toggleMenu()">
                     <span></span>
                     <span></span>
@@ -1072,7 +1161,14 @@
         <a href="#process" onclick="toggleMenu()" data-i18n="nav_process">Процесс</a>
         <a href="#about" onclick="toggleMenu()" data-i18n="nav_about">Обо мне</a>
         <a href="#faq" onclick="toggleMenu()" data-i18n="nav_faq">FAQ</a>
-        <a href="#contact" onclick="toggleMenu()" class="btn" style="margin-top: 20px;" data-i18n="header_cta">Начать проект →</a>
+        <a href="#contact" onclick="toggleMenu()" class="interactive-hover-btn" style="margin-top: 20px;">
+            <span class="btn-text" data-i18n="header_cta">Начать проект</span>
+            <div class="btn-hover-content">
+                <span data-i18n="header_cta">Начать проект</span>
+                <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+            <div class="btn-circle"></div>
+        </a>
         <div class="mobile-lang lang-switch">
             <span onclick="switchLang('kz')">KZ</span>
             <span class="active" onclick="switchLang('ru')">RU</span>
@@ -1102,8 +1198,22 @@
                     Я создаю цифровые продукты от концепции до запуска. Объединяю стратегический дизайн, чистый код и понимание бизнеса для решения реальных задач.
                 </p>
                 <div class="hero-cta">
-                    <a href="#contact" class="btn" data-i18n="hero_cta1">Начать проект →</a>
-                    <a href="#work" class="btn btn-outline" data-i18n="hero_cta2">Смотреть работы</a>
+                    <a href="#contact" class="interactive-hover-btn">
+                        <span class="btn-text" data-i18n="hero_cta1">Начать проект</span>
+                        <div class="btn-hover-content">
+                            <span data-i18n="hero_cta1">Начать проект</span>
+                            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </div>
+                        <div class="btn-circle"></div>
+                    </a>
+                    <a href="#work" class="interactive-hover-btn btn-outline">
+                        <span class="btn-text" data-i18n="hero_cta2">Смотреть работы</span>
+                        <div class="btn-hover-content">
+                            <span data-i18n="hero_cta2">Смотреть работы</span>
+                            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </div>
+                        <div class="btn-circle"></div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -1113,21 +1223,21 @@
     <section class="proof">
         <div class="container">
             <div class="proof-grid">
-                <div class="stat-item"><center>
+                <div class="stat-item">
                     <div class="stat-num" data-target="50">0</div>
-                    <div class="stat-label" data-i18n="proof_projects">Завершенных проектов</div></center>
+                    <div class="stat-label" data-i18n="proof_projects">Завершенных проектов</div>
                 </div>
-                <div class="stat-item"><center>
+                <div class="stat-item">
                     <div class="stat-num" data-target="3">0</div>
-                    <div class="stat-label" data-i18n="proof_exp">Опыта (лет)</div></center>
+                    <div class="stat-label" data-i18n="proof_exp">Опыта (лет)</div>
                 </div>
-                <div class="stat-item"><center>
+                <div class="stat-item">
                     <div class="stat-num" data-target="14">0</div>
-                    <div class="stat-label" data-i18n="proof_days">Средний срок (дней)</div></center>
+                    <div class="stat-label" data-i18n="proof_days">Средний срок (дней)</div>
                 </div>
-                <div class="stat-item"><center>
+                <div class="stat-item">
                     <div class="stat-num" data-target="100">0</div>
-                    <div class="stat-label" data-i18n="proof_satis">Довольных клиентов</div></center>
+                    <div class="stat-label" data-i18n="proof_satis">Довольных клиентов</div>
                 </div>
             </div>
         </div>
@@ -1141,7 +1251,14 @@
                     <div class="label" data-i18n="services_label">Что я создаю</div>
                     <h2 style="margin-top: 20px;" data-i18n="services_h2">Направления</h2>
                 </div>
-                <a href="#contact" class="btn btn-outline" data-i18n="services_cta">Начать проект</a>
+                <a href="#contact" class="interactive-hover-btn btn-outline">
+                    <span class="btn-text" data-i18n="services_cta">Начать проект</span>
+                    <div class="btn-hover-content">
+                        <span data-i18n="services_cta">Начать проект</span>
+                        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </div>
+                    <div class="btn-circle"></div>
+                </a>
             </div>
 
             <div class="services-list">
@@ -1422,7 +1539,7 @@
                         </div>
                         <div class="form-nav">
                             <div></div>
-                            <button class="btn" onclick="nextStep(2)" data-i18n="form_next">Далее →</button>
+                            <button class="form-btn primary" onclick="nextStep(2)" data-i18n="form_next">Далее →</button>
                         </div>
                     </div>
 
@@ -1435,8 +1552,8 @@
                             <div class="option" data-text="$3000+" onclick="selectOption(this, 'budget', this.getAttribute('data-text'))">$3000+</div>
                         </div>
                         <div class="form-nav">
-                            <button class="btn btn-outline" onclick="prevStep(1)" data-i18n="form_back">← Назад</button>
-                            <button class="btn" onclick="nextStep(3)" data-i18n="form_next">Далее →</button>
+                            <button class="form-btn" onclick="prevStep(1)" data-i18n="form_back">← Назад</button>
+                            <button class="form-btn primary" onclick="nextStep(3)" data-i18n="form_next">Далее →</button>
                         </div>
                     </div>
 
@@ -1450,8 +1567,8 @@
                             <div class="option" data-text="Flexible" onclick="selectOption(this, 'timeline', this.getAttribute('data-text'))"><span data-i18n="form_opt_time4">Гибко</span> <span>+</span></div>
                         </div>
                         <div class="form-nav">
-                            <button class="btn btn-outline" onclick="prevStep(2)" data-i18n="form_back">← Назад</button>
-                            <button class="btn" onclick="nextStep(4)" data-i18n="form_next">Далее →</button>
+                            <button class="form-btn" onclick="prevStep(2)" data-i18n="form_back">← Назад</button>
+                            <button class="form-btn primary" onclick="nextStep(4)" data-i18n="form_next">Далее →</button>
                         </div>
                     </div>
 
@@ -1463,8 +1580,8 @@
                             <div class="option" data-text="Telegram" onclick="selectOption(this, 'contact', this.getAttribute('data-text'))">Telegram <span>+</span></div>
                         </div>
                         <div class="form-nav">
-                            <button class="btn btn-outline" onclick="prevStep(3)" data-i18n="form_back">← Назад</button>
-                            <button class="btn" onclick="generateSummary()" data-i18n="form_submit">Отправить заявку →</button>
+                            <button class="form-btn" onclick="prevStep(3)" data-i18n="form_back">← Назад</button>
+                            <button class="form-btn primary" onclick="generateSummary()" data-i18n="form_submit">Отправить заявку →</button>
                         </div>
                     </div>
 
@@ -1477,8 +1594,15 @@
                         <div class="summary-row"><span data-i18n="form_sum_contact">Связь</span><span id="sum-contact">-</span></div>
                         
                         <div class="form-nav">
-                            <button class="btn btn-outline" onclick="prevStep(4)" data-i18n="form_edit">← Изменить</button>
-                            <a href="#" id="sendLink" class="btn" target="_blank" data-i18n="form_send_whatsapp">Отправить в WhatsApp →</a>
+                            <button class="form-btn" onclick="prevStep(4)" data-i18n="form_edit">← Изменить</button>
+                            <a href="#" id="sendLink" class="interactive-hover-btn" target="_blank">
+                                <span class="btn-text" data-i18n="form_send_whatsapp">Отправить в WhatsApp</span>
+                                <div class="btn-hover-content">
+                                    <span data-i18n="form_send_whatsapp">Отправить в WhatsApp</span>
+                                    <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                </div>
+                                <div class="btn-circle"></div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1490,7 +1614,14 @@
     <section style="padding: 120px 0; text-align: center; border-bottom: 1px solid var(--border); background: var(--bg);">
         <div class="container">
             <h2 style="font-size: clamp(48px, 10vw, 140px);" data-i18n="final_h2">Есть идея? Давайте создадим.</h2>
-            <a href="#contact" class="btn" style="margin-top: 40px; font-size: 18px; padding: 16px 32px;" data-i18n="final_btn">Начать проект →</a>
+            <a href="#contact" class="interactive-hover-btn" style="margin-top: 40px; font-size: 18px; padding: 16px 32px;">
+                <span class="btn-text" data-i18n="final_btn">Начать проект</span>
+                <div class="btn-hover-content">
+                    <span data-i18n="final_btn">Начать проект</span>
+                    <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
+                <div class="btn-circle"></div>
+            </a>
         </div>
     </section>
 
@@ -1515,7 +1646,7 @@
                     <h4 data-i18n="footer_contact_h">Контакты</h4>
                     <ul>
                         <li><a href="https://wa.me/77053554841" target="_blank">WhatsApp</a></li>
-                        <li><a href="https://t.me/rakishovbot" target="_blank">Telegram</a></li>
+                        <li><a href="https://t.me/sabir_rakishov" target="_blank">Telegram</a></li>
                         <li><a href="#contact" data-i18n="footer_form">Форма заявки</a></li>
                     </ul>
                 </div>
@@ -1526,8 +1657,6 @@
                     </ul>
                 </div>
             </div>
-            
-            <div class="massive-type">SABIR RAKISHOV</div>
 
             <div class="footer-bottom">
                 <span data-i18n="footer_rights">© 2026 Sabir Rakishov. Все права защищены.</span>
@@ -1542,11 +1671,11 @@
         const translations = {
             'kz': {
                 nav_services: 'Қызметтер', nav_work: 'Жұмыстар', nav_process: 'Үрдіс', nav_about: 'Мен туралы', nav_faq: 'Сұрақтар',
-                header_cta: 'Тапсырыс беру →',
+                header_cta: 'Тапсырыс беру',
                 hero_status: 'Жаңа жобаларға ашық', hero_location: 'Қазақстанда орналасқан',
                 hero_h1_1: 'Дизайн.', hero_h1_2: 'Код.', hero_h1_3: 'Бизнес.',
-                hero_desc: 'Цифрлық өнімдерді идеядан іске қосуға дейін толық жасаймын. Дизайн, таза код пен бизнесті біріктіріп, нақты мәселелерді шешетін тиімді шешімдер ұсынамын.',
-                hero_cta1: 'Тапсырыс беру →', hero_cta2: 'Жұмыстарды қарау',
+                hero_desc: 'Мен цифрлық өнімдерді концепциядан іске қосуға дейін жасаймын. Шынайы мәселелерді шешу үшін стратегиялық дизайн, таза код және іскерлік түсіністі біріктіремін.',
+                hero_cta1: 'Тапсырыс беру', hero_cta2: 'Жұмыстарды қарау',
                 proof_projects: 'Жеткізілген жобалар', proof_exp: 'Тәжірибе (жыл)', proof_days: 'Орт. мерзімі (күн)', proof_satis: 'Қанағаттанған тапсырыс берушілер',
                 services_label: 'Мен не құрамын', services_h2: 'Бағыттар', services_cta: 'Тапсырыс беру',
                 serv_1_t: 'Дизайн', serv_2_t: 'Әзірлеу', serv_3_t: 'Іске қосу',
@@ -1565,8 +1694,8 @@
                 proc_2_n: '02 / Концепция', proc_2_t: 'Дизайн', proc_2_d: 'Бекерімдер, UI/UX прототиптер мен визуалды бағытты жасау.',
                 proc_3_n: '03 / Әзірлеу', proc_3_t: 'Құру', proc_3_d: 'Таза, бейімделгіш frontend және функционалды backend әзірлеу.',
                 proc_4_n: '04 / Іске қосу', proc_4_t: 'Жеткізу', proc_4_d: 'Тестілеу, орналастыру, хостингті реттеу және базалық SEO конфигурациясы.',
-                about_label: 'Мен туралы', about_h2: 'Код артындағы адам.',
-                about_p: 'Мен Сабир Ракишов, 3 жылдан астам тәжірибесі бар fullstack әзірлеуші және дизайнермін. Мен жобаларыңызды делдалдарға бермеймін. Өзіңіздің өніміңізді жасайтын, кодтайтын және іске қосатын адаммен тікелей жұмыс істейсіз.',
+                about_label: 'Туралы', about_h2: 'Код артындағы адам.',
+                about_p: 'Мен Сабир Ракишовпын, 3 жылдан астам тәжірибесі бар fullstack әзірлеуші және дизайнермін. Мен жобаларыңызды делдалдарға бермеймін. Өзіңіздің өніміңізді жасайтын, кодтайтын және іске қосатын адаммен тікелей жұмыс істейсіз.',
                 about_role: 'Fullstack Developer & Designer',
                 faq_label: 'Сұрақтар мен жауаптар', faq_h2: 'Жиі қойылатын сұрақтар',
                 faq_q1: 'Веб-сайт әзірлеу қанша тұрады?', faq_a1: 'Бағасы күрделілігіне, жоба түріне және қажетті функцияларға байланысты. Лендингтер $500-нан, корпоративті сайттар немесе интернет-дүкендер $1000-нан басталады. Нақты баға брифингтен кейін беріледі.',
@@ -1581,19 +1710,19 @@
                 form_step3: '03 / 04', form_q3: 'Мерзімі', form_opt_time1: 'Жедел', form_opt_time2: '14 күн', form_opt_time3: '30 күн', form_opt_time4: 'Икемді',
                 form_step4: '04 / 04', form_q4: 'Байланыс әдісі', form_submit: 'Сұранысты жіберу →',
                 form_sum_ind: 'Бриф', form_sum_q: 'Сіздің өтінішіңіз', form_sum_type: 'Жоба түрі', form_sum_budget: 'Бюджет', form_sum_timeline: 'Мерзімі', form_sum_contact: 'Байланыс', form_edit: '← Өзгерту', 
-                form_send_whatsapp: 'WhatsApp арқылы жіберу →', form_send_telegram: 'Telegram арқылы жіберу →',
-                final_h2: 'Идея бар ма? Бірге жасайық.', final_btn: 'Тапсырыс беру →',
+                form_send_whatsapp: 'WhatsApp арқылы жіберу',
+                final_h2: 'Идея бар ма? Бірге жасайық.', final_btn: 'Тапсырыс беру',
                 footer_role: 'Fullstack Developer & Designer', footer_nav_h: 'Навигация', footer_contact_h: 'Байланыс', footer_form: 'Өтініш формасы', footer_social_h: 'Әлеуметтік желілер',
                 footer_rights: '© 2026 Sabir Rakishov. Барлық құқықтар қорғалған.', footer_made: 'Дәлдікпен жасалған және кодталған.',
                 wa_greeting: 'Сәлем, Сабир! Мен жобаны талқығым келеді.'
             },
             'ru': {
                 nav_services: 'Услуги', nav_work: 'Работы', nav_process: 'Процесс', nav_about: 'Обо мне', nav_faq: 'FAQ',
-                header_cta: 'Начать проект →',
+                header_cta: 'Начать проект',
                 hero_status: 'Открыт для новых проектов', hero_location: 'Базируется в Казахстане',
                 hero_h1_1: 'Дизайн.', hero_h1_2: 'Код.', hero_h1_3: 'Бизнес.',
                 hero_desc: 'Я создаю цифровые продукты от концепции до запуска. Объединяю стратегический дизайн, чистый код и понимание бизнеса для решения реальных задач.',
-                hero_cta1: 'Начать проект →', hero_cta2: 'Смотреть работы',
+                hero_cta1: 'Начать проект', hero_cta2: 'Смотреть работы',
                 proof_projects: 'Завершенных проектов', proof_exp: 'Опыта (лет)', proof_days: 'Средний срок (дней)', proof_satis: 'Довольных клиентов',
                 services_label: 'Что я создаю', services_h2: 'Направления', services_cta: 'Начать проект',
                 serv_1_t: 'Дизайн', serv_2_t: 'Разработка', serv_3_t: 'Запуск',
@@ -1628,19 +1757,19 @@
                 form_step3: '03 / 04', form_q3: 'Сроки', form_opt_time1: 'Срочно', form_opt_time2: '14 дней', form_opt_time3: '30 дней', form_opt_time4: 'Гибко',
                 form_step4: '04 / 04', form_q4: 'Способ связи', form_submit: 'Отправить заявку →',
                 form_sum_ind: 'Бриф', form_sum_q: 'Ваша заявка', form_sum_type: 'Тип проекта', form_sum_budget: 'Бюджет', form_sum_timeline: 'Сроки', form_sum_contact: 'Связь', form_edit: '← Изменить', 
-                form_send_whatsapp: 'Отправить в WhatsApp →', form_send_telegram: 'Отправить в Telegram →',
-                final_h2: 'Есть идея? Давайте создадим.', final_btn: 'Начать проект →',
+                form_send_whatsapp: 'Отправить в WhatsApp',
+                final_h2: 'Есть идея? Давайте создадим.', final_btn: 'Начать проект',
                 footer_role: 'Fullstack Developer & Designer', footer_nav_h: 'Навигация', footer_contact_h: 'Контакты', footer_form: 'Форма заявки', footer_social_h: 'Соцсети',
                 footer_rights: '© 2026 Sabir Rakishov. Все права защищены.', footer_made: 'Спроектировано и закодировано с точностью.',
                 wa_greeting: 'Здравствуйте, Сабир! Хочу обсудить проект.'
             },
             'en': {
                 nav_services: 'Services', nav_work: 'Work', nav_process: 'Process', nav_about: 'About', nav_faq: 'FAQ',
-                header_cta: 'Start a Project →',
+                header_cta: 'Start a Project',
                 hero_status: 'Available for new projects', hero_location: 'Based in Kazakhstan',
                 hero_h1_1: 'Design.', hero_h1_2: 'Code.', hero_h1_3: 'Business.',
                 hero_desc: 'I build digital products from concept to launch. Combining strategic design, clean code, and business understanding to solve real problems.',
-                hero_cta1: 'Start a Project →', hero_cta2: 'View Work',
+                hero_cta1: 'Start a Project', hero_cta2: 'View Work',
                 proof_projects: 'Projects Delivered', proof_exp: 'Years Experience', proof_days: 'Days Avg Delivery', proof_satis: 'Client Satisfaction',
                 services_label: 'What I Build', services_h2: 'Capabilities', services_cta: 'Start Project',
                 serv_1_t: 'Design', serv_2_t: 'Development', serv_3_t: 'Launch',
@@ -1675,8 +1804,8 @@
                 form_step3: '03 / 04', form_q3: 'Timeline', form_opt_time1: 'ASAP', form_opt_time2: '14 Days', form_opt_time3: '30 Days', form_opt_time4: 'Flexible',
                 form_step4: '04 / 04', form_q4: 'Contact Method', form_submit: 'Submit Request →',
                 form_sum_ind: 'Summary', form_sum_q: 'Project Brief', form_sum_type: 'Project Type', form_sum_budget: 'Budget', form_sum_timeline: 'Timeline', form_sum_contact: 'Contact', form_edit: '← Edit', 
-                form_send_whatsapp: 'Send via WhatsApp →', form_send_telegram: 'Send via Telegram →',
-                final_h2: 'Have an idea? Let\'s build it.', final_btn: 'Start a Project →',
+                form_send_whatsapp: 'Send via WhatsApp',
+                final_h2: 'Have an idea? Let\'s build it.', final_btn: 'Start a Project',
                 footer_role: 'Fullstack Developer & Designer', footer_nav_h: 'Navigation', footer_contact_h: 'Contact', footer_form: 'Project Form', footer_social_h: 'Social',
                 footer_rights: '© 2026 Sabir Rakishov. All rights reserved.', footer_made: 'Designed & Coded with precision.',
                 wa_greeting: 'Hello Sabir! I want to discuss a project.'
@@ -1813,11 +1942,13 @@
             const message = `${greeting}%0A%0A${lblType}: ${formData.type}%0A${lblBudget}: ${formData.budget}%0A${lblTimeline}: ${formData.timeline}%0A${lblContact}: ${formData.contact}`;
 
             if (formData.contact === 'Telegram') {
-                sendLink.innerText = translations[currentLang].form_send_telegram;
+                sendLink.querySelector('.btn-text').innerText = translations[currentLang].form_send_telegram;
+                sendLink.querySelector('.btn-hover-content span').innerText = translations[currentLang].form_send_telegram;
                 // Замените 'sabir_rakishov' на ваш реальный Telegram username
-                sendLink.href = `https://t.me/rakishovbot{message}`;
+                sendLink.href = `https://t.me/sabir_rakishov?text=${message}`;
             } else {
-                sendLink.innerText = translations[currentLang].form_send_whatsapp;
+                sendLink.querySelector('.btn-text').innerText = translations[currentLang].form_send_whatsapp;
+                sendLink.querySelector('.btn-hover-content span').innerText = translations[currentLang].form_send_whatsapp;
                 sendLink.href = `https://wa.me/77053554841?text=${message}`;
             }
 
