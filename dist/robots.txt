@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /ru/analytics/
+Disallow: /analytics/
+Disallow: /en/analytics/
+Sitemap: https://sabir2025.github.io/rakishov/sitemap.xml

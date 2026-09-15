@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "forma",
+    "name": "FORMA",
+    "type": "corporate",
+    "color": "#dce0d3",
+    "index": 0
+  },
+  {
+    "slug": "objects",
+    "name": "OBJECTS",
+    "type": "commerce",
+    "color": "#e6cbb1",
+    "index": 1
+  },
+  {
+    "slug": "pulse",
+    "name": "PULSE",
+    "type": "landing",
+    "color": "#e7f39e",
+    "index": 2
+  },
+  {
+    "slug": "flow",
+    "name": "FLOW",
+    "type": "app",
+    "color": "#cac9ee",
+    "index": 3
+  },
+  {
+    "slug": "vita-nova",
+    "name": "VITA NOVA",
+    "type": "corporate",
+    "color": "#f3c7b9",
+    "index": 4
+  },
+  {
+    "slug": "beton",
+    "name": "BETON",
+    "type": "landing",
+    "color": "#c9d0d0",
+    "index": 5
+  }
+]

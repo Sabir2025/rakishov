@@ -1,0 +1,11 @@
+import {makeId} from './id.js';
+import {intake,configured} from './api.js';
+import {language} from './i18n.js';
+let sessionId;try{sessionId=sessionStorage.getItem('sr-visit');if(!sessionId){sessionId=makeId();sessionStorage.setItem('sr-visit',sessionId)}}catch{sessionId=makeId()}
+export const getSession=()=>sessionId;
+export const consent=()=>{try{return localStorage.getItem('sr-consent')}catch{return 'no'}};
+export async function track(event,extra={}){if(!configured()||consent()!=='yes'||document.body.classList.contains('admin'))return;try{await intake({kind:'event',event,session_id:sessionId,page:location.pathname,language,project:extra.project||null,step:extra.step||null})}catch{/* Analytics must never interrupt the visitor. */}}
+export function attribution(){const u=new URL(location.href);let ref='';try{ref=new URL(document.referrer).hostname}catch{};const clean=v=>String(v||'').replace(/[^\p{L}\p{N} ._\-]/gu,'').slice(0,100);const us=clean(u.searchParams.get('utm_source')),rm=ref.toLowerCase();const source=us||(/google\./.test(rm)?'Google':/instagram/.test(rm)?'Instagram':/t\.me|telegram/.test(rm)?'Telegram':/whatsapp|wa\.me/.test(rm)?'WhatsApp':ref?'Other':'Direct');return {source,utm_source:us,utm_medium:clean(u.searchParams.get('utm_medium')),utm_campaign:clean(u.searchParams.get('utm_campaign')),referrer:ref,landing_page:location.pathname.slice(0,300),device_type:matchMedia('(max-width:650px)').matches?'mobile':'desktop',language}}
+// Attribution stays in memory; no personal form text or contact is persisted in browser storage.
+export const firstTouch=attribution();
+export function initTracking(){const banner=document.querySelector('#consent-banner');if(!document.body.classList.contains('admin')&&!consent())banner.hidden=false;document.querySelectorAll('[data-consent]').forEach(b=>b.onclick=()=>{try{localStorage.setItem('sr-consent',b.dataset.consent)}catch{}banner.hidden=true;if(b.dataset.consent==='yes')track('page_view')});document.addEventListener('click',e=>{const a=e.target.closest('[data-event]');if(a)track(a.dataset.event);const p=e.target.closest('[data-project]');if(p?.tagName==='A')track('project_view',{project:p.dataset.project})});track('page_view');if(document.body.dataset.project)track('case_study_open',{project:document.body.dataset.project})}
