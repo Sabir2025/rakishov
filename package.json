@@ -1,0 +1,17 @@
+{
+  "name": "rakishov-public",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "python3 scripts/build.py && node scripts/bundle.mjs && python3 scripts/package_site.py",
+    "check": "python3 tests/check_static.py",
+    "serve": "python3 -m http.server 8080 --directory dist",
+    "test": "python3 tests/check_static.py"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.8",
+    "linkedom": "0.18.13",
+    "esbuild": "0.28.2"
+  }
+}
