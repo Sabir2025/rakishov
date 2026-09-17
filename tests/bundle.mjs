@@ -1,4 +1,4 @@
-import vm from 'node:vm';import fs from 'node:fs/promises';import {parseHTML} from 'linkedom';import assert from 'node:assert/strict';import {webcrypto} from 'node:crypto';
+import vm from 'node:vm';import fs from 'node:fs/promises';import {createRequire} from 'node:module';const {parseHTML}=createRequire(import.meta.url)('linkedom');import assert from 'node:assert/strict';import {webcrypto} from 'node:crypto';
 const html=await fs.readFile(new URL('../index.html',import.meta.url),'utf8');const code=await fs.readFile(new URL('../js/site.bundle.js',import.meta.url),'utf8');
 for(const address of ['file:///tmp/rakishov/index.html','http://example.test/index.html']){
  const {window,document}=parseHTML(html);let network=0,frames=[],draws=0,errors=[];const store=new Map();

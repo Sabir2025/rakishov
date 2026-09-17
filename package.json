@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "python3 scripts/build.py && node scripts/bundle.mjs && python3 scripts/package_site.py",
-    "check": "python3 tests/check_static.py",
+    "check": "node tests/animation.mjs && node tests/bundle.mjs",
     "serve": "python3 -m http.server 8080 --directory dist",
-    "test": "python3 tests/check_static.py"
+    "test": "node tests/animation.mjs && node tests/bundle.mjs"
   },
   "devDependencies": {
     "@electric-sql/pglite": "0.5.8",
