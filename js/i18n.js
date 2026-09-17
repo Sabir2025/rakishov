@@ -7,7 +7,7 @@ export const esc = value => String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;
 export const route = path => new URL((language==='kz'?'':language+'/')+path+(location.protocol==='file:'&&(!path||path.endsWith('/'))?'index.html':''),base).href;
 export function setLanguage(lang, updateUrl=true){
  if(!dictionaries[lang])return; language=lang;document.body.dataset.lang=lang;document.documentElement.lang=lang==='kz'?'kk':lang;
- document.querySelectorAll('[data-t]').forEach(el=>{el.replaceChildren(...t(el.dataset.t).split('\n').flatMap((line,i)=>i?[document.createElement('br'),document.createTextNode(line)]:[document.createTextNode(line)]))});
+ document.querySelectorAll('[data-t]').forEach(el=>{const val=t(el.dataset.t);const lines=val.split('\n');el.replaceChildren(...lines.flatMap((line,i)=>{const frag=document.createDocumentFragment();const tmp=document.createElement('template');tmp.innerHTML=line;const nodes=Array.from(tmp.content.childNodes).map(n=>n.cloneNode(true));const result=i?[document.createElement('br'),...nodes]:nodes;return result}))});
  document.querySelectorAll('[data-label]').forEach(el=>el.setAttribute('aria-label',t(el.dataset.label)));
  document.querySelectorAll('[data-lang]').forEach(el=>{if(el.tagName==='BUTTON')el.setAttribute('aria-pressed',String(el.dataset.lang===lang))});
  document.querySelectorAll('[data-home]').forEach(el=>el.href=route('')+el.dataset.home);

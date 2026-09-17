@@ -16,6 +16,10 @@ export function initPageInteractions(){
   const settle=()=>{if(animation){animation.onfinish=null;animation.cancel();finish();}};
   window.addEventListener('languagechange',settle);reduced.addEventListener('change',settle);
  });
+ document.querySelectorAll('.service').forEach(service=>{
+  service.addEventListener('mouseenter',()=>{service.open=true});
+  service.addEventListener('mouseleave',()=>{service.open=false});
+ });
  const button=document.querySelector('#back-to-top'),footer=document.querySelector('.footer');
  if(!button||!footer)return;
  button.addEventListener('click',()=>{window.scrollTo({top:0,behavior:reduced.matches?'instant':'smooth'});const brand=document.querySelector('.header .brand');brand?.focus({preventScroll:true});});

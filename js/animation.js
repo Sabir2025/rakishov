@@ -52,18 +52,18 @@ export function initField(){
    for(let x=gx-1;x<=gx+1;x++)for(let y=gy-1;y<=gy+1;y++)for(const j of buckets.get(x+','+y)||[]){
     if(j<=i)continue;const m=nodes[j],distance=Math.hypot(n.x-m.x,n.y-m.y);if(distance>=connectionDistance)continue;
     const active=mouse.active&&Math.hypot(mouse.x-n.x,mouse.y-n.y)<radius;
-    ctx.strokeStyle=active?`rgba(180,83,48,${(1-distance/connectionDistance)*.30})`:`rgba(21,21,21,${(1-distance/connectionDistance)*.18})`;
+    ctx.strokeStyle=active?`rgba(199,166,103,${(1-distance/connectionDistance)*.30})`:`rgba(16,32,45,${(1-distance/connectionDistance)*.18})`;
     ctx.lineWidth=.7;ctx.beginPath();ctx.moveTo(n.x,n.y);ctx.lineTo(m.x,m.y);ctx.stroke();
    }
   }
   for(const n of nodes){
    const distance=mouse.active?Math.hypot(mouse.x-n.x,mouse.y-n.y):Infinity,near=distance<radius;
-   ctx.fillStyle=near?'rgba(203,88,49,.9)':`rgba(21,21,21,${.18+Math.sin(n.pulse)*.07})`;
+   ctx.fillStyle=near?'rgba(199,166,103,.9)':`rgba(16,32,45,${.18+Math.sin(n.pulse)*.07})`;
    ctx.beginPath();ctx.arc(n.x,n.y,Math.max(.5,near?n.radius*2.2:n.radius+Math.sin(n.pulse)*.3),0,Math.PI*2);ctx.fill();
    if(distance<90){
     const ring=((n.pulse*20)%30)+4;
-    ctx.strokeStyle=`rgba(203,88,49,${(1-ring/34)*.35})`;ctx.lineWidth=1;ctx.beginPath();ctx.arc(n.x,n.y,ring,0,Math.PI*2);ctx.stroke();
-    ctx.font='10px Manrope, Arial, sans-serif';ctx.fillStyle='rgba(160,66,37,.8)';ctx.fillText(n.label,n.x+10,n.y-10);
+    ctx.strokeStyle=`rgba(199,166,103,${(1-ring/34)*.35})`;ctx.lineWidth=1;ctx.beginPath();ctx.arc(n.x,n.y,ring,0,Math.PI*2);ctx.stroke();
+    ctx.font='10px Manrope, Arial, sans-serif';ctx.fillStyle='rgba(16,32,45,.8)';ctx.fillText(n.label,n.x+10,n.y-10);
    }
   }
  }
